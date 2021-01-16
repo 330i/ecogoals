@@ -19,57 +19,156 @@ class EntryConfirmationPage extends StatefulWidget {
 }
 
 class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
-  int _counter = 0;
+  List<TextEditingController> controller = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  List<Text> titles = [
+    Text('Name'),
+    Text('Material'),
+    Text('Width'),
+    Text('Height'),
+    Text('Weight'),
+  ];
+
+  Divider divider = Divider(
+    color: Colors.blue,
+    height: 10,
+    thickness: 2,
+    indent: 20,
+    endIndent: 0,
+  );
+
+  void updateScanData(int index, String data) {}
+
+  void setDefaultScanData() {
+    for (TextEditingController con in controller) {
+      con.value = TextEditingValue(
+        text: '-----',
+      );
+    }
+  }
+
+  void _confirmScan() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    setDefaultScanData();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
         child: ListView(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8),
           children: <Widget>[
             Container(
-              height: 50,
+              height: 64,
               color: Colors.blue[100],
-              child: const Center(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter a search term',
-                  ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    titles[0],
+                    TextField(
+                      controller: controller[0],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
+            divider,
             Container(
-              height: 50,
-              color: Colors.blue[300],
-              child: const Center(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter a search term',
-                  ),
+              height: 64,
+              color: Colors.blue[100],
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    titles[1],
+                    TextField(
+                      controller: controller[1],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
+            divider,
             Container(
-              height: 50,
+              height: 64,
               color: Colors.blue[100],
-              child: const Center(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter a search term',
-                  ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    titles[2],
+                    TextField(
+                      controller: controller[2],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            divider,
+            Container(
+              height: 64,
+              color: Colors.blue[100],
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    titles[3],
+                    TextField(
+                      controller: controller[3],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            divider,
+            Container(
+              height: 64,
+              color: Colors.blue[100],
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    titles[4],
+                    TextField(
+                      controller: controller[4],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -77,7 +176,8 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _confirmScan,
+        backgroundColor: Colors.green[100],
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
