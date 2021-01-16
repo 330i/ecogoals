@@ -1,4 +1,4 @@
-import 'package:ecogoals/test.dart';
+import 'package:ecogoals/ar.dart';
 
 import 'package:ecogoals/pages/scan_page.dart';
 
