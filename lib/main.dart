@@ -1,5 +1,6 @@
 import 'package:ecogoals/pages/scan_page.dart';
 import 'package:flutter/material.dart';
+import 'pages/entry_confirmation_page.dart';
 
 void main() {
   runApp(MyApp());
