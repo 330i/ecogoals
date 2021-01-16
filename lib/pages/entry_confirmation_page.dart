@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecogoals/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:validators/sanitizers.dart';
 
 class EntryConfirmationPage extends StatefulWidget {
@@ -49,6 +50,44 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
     Text('Expiration'),
   ];
 
+  bool setparams = false;
+
+  void setDefaultParams() {
+    print("PARAMSSSSSS!");
+    print(widget.params.toString());
+    setState(
+      () {
+        try {
+          controller[5].text = widget.params['weight'].toString();
+
+          controller[0].text = widget.params['product_name'].toString();
+          controller[6].text = widget.params['barcode_number'].toString();
+          if (widget.params['category']
+              .toString()
+              .toLowerCase()
+              .contains("food")) {
+            isFood = true;
+          }
+          controller[4].text = widget.params['height'].toString();
+          controller[3].text = widget.params['width'].toString();
+          controller[2].text = widget.params['length'].toString();
+        } catch (err) {
+          print("There was an error");
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      controller[5].text = widget.params['weight'].toString();
+    } catch (err) {
+      print("There was an error");
+    }
+  }
+
   Divider divider = Divider(
     color: Colors.blue,
     height: 10,
@@ -66,7 +105,8 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
   }
 
   void _confirmScan() async {
-    DocumentReference doc = FirebaseFirestore.instance.collection('scans').doc();
+    DocumentReference doc =
+        FirebaseFirestore.instance.collection('scans').doc();
     setState(() {
       Product product = Product(
         name: controller[0].text,
@@ -84,11 +124,18 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
       );
       doc.set(product.toJson());
     });
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    setDefaultScanData();
+    if (setparams == false) {
+      setDefaultParams();
+      setState(() {
+        setparams = true;
+      });
+    }
+
     return Scaffold(
       body: Center(
         child: ListView(
@@ -261,7 +308,9 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
                     children: <Widget>[
                       titles[8],
                       Text(
-                        expiration == null ? '' : '${expiration.month}/${expiration.day}/${expiration.year}',
+                        expiration == null
+                            ? ''
+                            : '${expiration.month}/${expiration.day}/${expiration.year}',
                       ),
                     ],
                   ),
@@ -270,7 +319,9 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
               onTap: () {
                 showDatePicker(
                   context: context,
-                  initialDate: expiration != null ? expiration : DateTime(DateTime.now().year),
+                  initialDate: expiration != null
+                      ? expiration
+                      : DateTime(DateTime.now().year),
                   firstDate: DateTime(DateTime.now().year),
                   lastDate: DateTime(2050),
                 ).then((expirationdate) {
