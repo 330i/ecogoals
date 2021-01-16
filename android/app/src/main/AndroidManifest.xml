@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.crhsidea.ecogoals">
-   <application
+    <uses-sdk android:minSdkVersion="24"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.ar" />
+    <application
         android:label="ecogoals"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -37,5 +40,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
+       <meta-data android:name="com.google.ar.core" android:value="optional" />
+   </application>
 </manifest>
