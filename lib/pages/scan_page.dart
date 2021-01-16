@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:http/http.dart' as http;
 
 class ScanPage extends StatefulWidget {
   ScanPage({Key key, this.title}) : super(key: key);
@@ -25,13 +27,26 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   String _scanBarcode = 'Unknown';
 
+  String barcodeBase = "https://api.barcodelookup.com/v2/products?barcode=";
+  String barcodeSearchKey = "kwdpyrwe68p47x8dx81oyht7jzirg0";
+
   @override
   void initState() {
     super.initState();
   }
 
+  var barcodedata = {};
+
+  Future getBarcodeData(String barcode) async {
+    var url = barcodeBase + barcode + "&formatted=y&key=" + barcodeSearchKey;
+    var response = await http.get(url);
+
+    barcodedata = json.decode(response.body);
+    print(barcodedata);
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> scanBarcodeNormal() async {
+  Future scanBarcodeNormal() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -47,6 +62,7 @@ class _ScanPageState extends State<ScanPage> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
+    await getBarcodeData(barcodeScanRes);
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
