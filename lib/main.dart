@@ -1,4 +1,5 @@
 import 'package:ecogoals/ar.dart';
+import 'package:ecogoals/pages/entry_confirmation_page.dart';
 
 import 'package:ecogoals/pages/scan_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    FutureBuilder(
+    return FutureBuilder(
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: BottomBar(),
+              body: EntryConfirmationPage(),
             ),
           );
         }
@@ -44,4 +45,5 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+  }
 }

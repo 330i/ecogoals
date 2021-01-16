@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
   String name;
+  String id;
   String barcode;
   String packaging;
   int used;
@@ -11,12 +12,12 @@ class Product {
   double width;
   double weight;
   bool isFood;
-  DateTime time;
-  DateTime expiration;
+  Timestamp time;
+  Timestamp expiration;
 
   DocumentReference reference;
 
-Product({this.name, this.barcode, this.packaging, this.used, this.height, this.length, this.width, this.weight, this.isFood, this.time, this.expiration});
+Product({this.name, this.id, this.barcode, this.packaging, this.used, this.height, this.length, this.width, this.weight, this.isFood, this.time, this.expiration});
 
   factory Product.fromSnapshot(DocumentSnapshot snapshot) {
     Product newProduct = Product.fromJson(snapshot.data());
@@ -27,6 +28,7 @@ Product({this.name, this.barcode, this.packaging, this.used, this.height, this.l
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       name: json['name'] as String,
+      id: json['id'] as String,
       barcode: json['barcode'] as String,
       packaging: json['packaging'] as String,
       used: json['used'] as int,
@@ -35,8 +37,8 @@ Product({this.name, this.barcode, this.packaging, this.used, this.height, this.l
       width: json['width'] as double,
       weight: json['weight'] as double,
       isFood: json['isFood'] as bool,
-      time: json['time'] as DateTime,
-      expiration: json['expiration'] as DateTime,
+      time: json['time'] as Timestamp,
+      expiration: json['expiration'] as Timestamp,
     );
   }
 
@@ -45,15 +47,16 @@ Product({this.name, this.barcode, this.packaging, this.used, this.height, this.l
   Map<String, dynamic> _ProductToJson(Product instance) {
     return <String, dynamic> {
       'name': instance.name,
+      'id': instance.id,
       'barcode': instance.barcode,
       'packaging': instance.packaging,
       'used': instance.used,
       'height': instance.height,
       'length': instance.length,
-      'width': instance.name,
-      'weight': instance.name,
-      'isFood': instance.name,
-      'time': instance.name,
+      'width': instance.width,
+      'weight': instance.weight,
+      'isFood': instance.isFood,
+      'time': instance.time,
       'expiration': instance.expiration,
     };
   }
