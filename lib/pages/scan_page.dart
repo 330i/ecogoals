@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:ecogoals/pages/entry_confirmation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -39,16 +40,18 @@ class _ScanPageState extends State<ScanPage> {
 
   Future getFoodData(String name) {}
 
-  Future getBarcodeData(String barcode) async {
+  Future<Map<String, dynamic>> getBarcodeData(String barcode) async {
     var url = barcodeBase + barcode + "&formatted=y&key=" + barcodeSearchKey;
     var response = await http.get(url);
 
     barcodedata = json.decode(response.body);
+
     print(barcodedata);
+    return barcodedata;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future scanBarcodeNormal() async {
+  Future scanBarcodeNormal(BuildContext context) async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -64,10 +67,19 @@ class _ScanPageState extends State<ScanPage> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    await getBarcodeData(barcodeScanRes);
+    var data = await getBarcodeData(barcodeScanRes);
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => EntryConfirmationPage(
+                title: "Confirmation",
+                params: data,
+              )),
+    );
   }
 
   @override
@@ -83,7 +95,7 @@ class _ScanPageState extends State<ScanPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RaisedButton(
-                            onPressed: () => scanBarcodeNormal(),
+                            onPressed: () => scanBarcodeNormal(context),
                             child: Text("Start barcode scan")),
                         Text('Scan result : $_scanBarcode\n',
                             style: TextStyle(fontSize: 20))

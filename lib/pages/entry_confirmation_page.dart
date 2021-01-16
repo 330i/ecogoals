@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EntryConfirmationPage extends StatefulWidget {
-  EntryConfirmationPage({Key key, this.title}) : super(key: key);
+  EntryConfirmationPage({Key key, this.title, this.params}) : super(key: key);
+
+  final Map<String, dynamic> params;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
