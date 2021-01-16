@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "205953730386",
+    "project_id": "ecogoals-585da",
+    "storage_bucket": "ecogoals-585da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205953730386:android:d842234a48f38285741c8b",
+        "android_client_info": {
+          "package_name": "org.crhsidea.ecogoals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205953730386-cm8bnasffcftc7ecbk6nba4ffhh05ceq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-qAs7MExSWOpn7CDM3BbkyhZxMZ3gXSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205953730386-cm8bnasffcftc7ecbk6nba4ffhh05ceq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

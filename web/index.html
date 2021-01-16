@@ -40,6 +40,30 @@
       });
     }
   </script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyBrJazA8w-rBcnu44BN4gf_hhBdgBj8l-4",
+      authDomain: "ecogoals-585da.firebaseapp.com",
+      projectId: "ecogoals-585da",
+      storageBucket: "ecogoals-585da.appspot.com",
+      messagingSenderId: "205953730386",
+      appId: "1:205953730386:web:89ff9ec5f6130cc3741c8b",
+      measurementId: "G-KNJL0M2F3G"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
