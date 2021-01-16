@@ -1,3 +1,4 @@
+import 'package:ecogoals/test.dart';
 import 'package:flutter/material.dart';
 import 'bottomAppBar.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BottomBar(),
+      home: test(),
     );
   }
 }
