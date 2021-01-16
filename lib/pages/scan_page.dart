@@ -37,6 +37,8 @@ class _ScanPageState extends State<ScanPage> {
 
   var barcodedata = {};
 
+  Future getFoodData(String name) {}
+
   Future getBarcodeData(String barcode) async {
     var url = barcodeBase + barcode + "&formatted=y&key=" + barcodeSearchKey;
     var response = await http.get(url);
