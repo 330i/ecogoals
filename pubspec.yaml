@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^0.3.3
   md2_tab_indicator: ^1.0.2
+  flutter_barcode_scanner: ^1.0.2
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:

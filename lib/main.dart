@@ -1,4 +1,7 @@
 import 'package:ecogoals/test.dart';
+
+import 'package:ecogoals/pages/scan_page.dart';
+
 import 'package:flutter/material.dart';
 import 'bottomAppBar.dart';
 
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: test(),
+      home: ScanPage(title: 'Barcode Scan Test'),
     );
   }
 }
