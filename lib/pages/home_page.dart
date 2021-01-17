@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:ecogoals/pages/real_home_page.dart';
 import 'package:ecogoals/pages/scan_data_page.dart';
 import 'package:ecogoals/pages/scan_page.dart';
+import 'package:ecogoals/screens/with_arkit_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   var _pageOptions = [
     Stats(),
     ScanDataPage(),
+    WithARkitScreen(),
   ];
 
   @override
@@ -63,7 +65,13 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.sort),
               title: Text('Scan'),
               activeColor: Colors.orange,
-            )],
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.sort),
+              title: Text('Visualization'),
+              activeColor: Colors.orange,
+            )
+          ],
         ));
   }
 }
