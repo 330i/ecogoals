@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecogoals/models/product.dart';
 import 'package:ecogoals/pages/info_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:validators/sanitizers.dart';
@@ -107,12 +108,8 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
     }
   }
 
-  Divider divider = Divider(
-    color: Colors.blue,
-    height: 10,
-    thickness: 2,
-    indent: 20,
-    endIndent: 0,
+  SizedBox box = SizedBox(
+    height: 5,
   );
 
   void updateScanData(int index, String data) {}
@@ -162,205 +159,280 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
 
     return Scaffold(
       body: Center(
-        child: ListView(
-          padding: EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[0],
-                    TextField(
-                      controller: controller[0],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.all(8),
+            children: <Widget>[
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              ),
-            ),
-            divider,
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[1],
-                    TextField(
-                      controller: controller[1],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            divider,
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[2],
-                    TextField(
-                      controller: controller[2],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            divider,
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[3],
-                    TextField(
-                      controller: controller[3],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            divider,
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[4],
-                    TextField(
-                      controller: controller[4],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[5],
-                    TextField(
-                      controller: controller[5],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            divider,
-            Container(
-              height: 64,
-              color: Colors.blue[100],
-              child: IntrinsicHeight(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    titles[6],
-                    TextField(
-                      controller: controller[6],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            divider,
-            CheckboxListTile(
-              title: Text('Food'),
-              value: isFood,
-              onChanged: (bool value) {
-                setState(() {
-                  isFood = value;
-                });
-              },
-            ),
-            divider,
-            GestureDetector(
-              child: Container(
-                height: 64,
-                color: Colors.blue[100],
+                color: Colors.blueGrey[30],
+                elevation: 3,
+                shadowColor: Colors.green,
                 child: IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      titles[8],
-                      Text(
-                        expiration == null
-                            ? ''
-                            : '${expiration.month}/${expiration.day}/${expiration.year}',
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[0],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Name:',
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18)),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-              onTap: () {
-                showDatePicker(
-                  context: context,
-                  initialDate: expiration != null
-                      ? expiration
-                      : DateTime(DateTime.now().year),
-                  firstDate: DateTime(DateTime.now().year),
-                  lastDate: DateTime(2050),
-                ).then((expirationdate) {
-                  setState(() {
-                    expiration = expirationdate;
+              box,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                shadowColor: Colors.green,
+                elevation: 3,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[1],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Material:',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                elevation: 3,
+                shadowColor: Colors.green,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[2],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Length:',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                shadowColor: Colors.green,
+                elevation: 3,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[3],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Width:',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                shadowColor: Colors.green,
+                elevation: 3,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[4],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Height:',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                shadowColor: Colors.green,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[5],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Weight:',
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Colors.blueGrey[30],
+                elevation: 3,
+                shadowColor: Colors.green,
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 80,
+                        child: TextField(
+                          controller: controller[6],
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '     Barcode:',
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              box,
+              GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  color: Colors.blueGrey[30],
+                  elevation: 3,
+                  shadowColor: Colors.green,
+                  child: IntrinsicHeight(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 80,
+                          child: Text(
+                            expiration == null
+                                ? ''
+                                : '${expiration.month}/${expiration.day}/${expiration.year}',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  showDatePicker(
+                    context: context,
+                    initialDate: expiration != null
+                        ? expiration
+                        : DateTime(DateTime.now().year),
+                    firstDate: DateTime(DateTime.now().year),
+                    lastDate: DateTime(2050),
+                  ).then((expirationdate) {
+                    setState(() {
+                      expiration = expirationdate;
+                    });
                   });
-                });
-              },
-            ),
-          ],
+                },
+              ),
+              box,
+              Card(
+                child: CheckboxListTile(
+                  title: Text('Food'),
+                  value: isFood,
+                  onChanged: (bool value) {
+                    setState(() {
+                      isFood = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: 70)
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _confirmScan,
-        backgroundColor: Colors.green[100],
+        backgroundColor: Colors.green[200],
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

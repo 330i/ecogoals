@@ -66,10 +66,10 @@ class _HomePageState extends State<HomePage> {
               activeColor: Colors.orange,
             ),
             BottomNavyBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.thumb_up_alt),
                 title: Text('Goals'),
-                activeColor: Colors.black38),
-          ],
+                activeColor: Colors.green,
+            )],
         ));
   }
 }
