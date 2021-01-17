@@ -15,11 +15,10 @@ class ScanDataPage extends StatefulWidget {
 }
 
 class _ScanDataPageState extends State<ScanDataPage> {
-
   String _scanBarcode = 'Unknown';
 
   String barcodeBase = "https://api.barcodelookup.com/v2/products?barcode=";
-  String barcodeSearchKey = "kwdpyrwe68p47x8dx81oyht7jzirg0";
+  String barcodeSearchKey = "6uyacpq2o718lih1oc8rl4cgs7644g";
 
   int touchedIndex;
 
@@ -68,23 +67,15 @@ class _ScanDataPageState extends State<ScanDataPage> {
       context,
       MaterialPageRoute(
           builder: (context) => EntryConfirmationPage(
-            title: "Confirmation",
-            params: data,
-            barcode: barcodeScanRes,
-            name: barcodedata['products'][0]['product_name'],
-            weight: barcodedata['products'][0]['weight'],
-            length: barcodedata['products'][0]['length'],
-            width: barcodedata['products'][0]['width'],
-            height: barcodedata['products'][0]['height'],
-            isFood: barcodedata['products'][0]['category'].contains('Food'),
-          )),
+                params: data["products"][0],
+              )),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold (
-        appBar: AppBar (
+    return Scaffold(
+        appBar: AppBar(
           elevation: 2.0,
           backgroundColor: Colors.white,
           title: Row(
@@ -94,7 +85,11 @@ class _ScanDataPageState extends State<ScanDataPage> {
                 color: Colors.black,
                 size: 32,
               ),
-              Text('Home', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 30.0))
+              Text('Home',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30.0))
             ],
           ),
         ),
@@ -106,12 +101,17 @@ class _ScanDataPageState extends State<ScanDataPage> {
           children: <Widget>[
             _buildTile(
               Padding(
-                padding: const EdgeInsets.only(left: 24.0, right: 20.0, top: 8.0, bottom: 12.0),
-                child: Column (
+                padding: const EdgeInsets.only(
+                    left: 24.0, right: 20.0, top: 8.0, bottom: 12.0),
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget> [
-                      Text('Waste Material', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16.0)),
+                    children: <Widget>[
+                      Text('Waste Material',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16.0)),
                       Center(
                         child: Container(
                           child: Center(
@@ -125,41 +125,64 @@ class _ScanDataPageState extends State<ScanDataPage> {
                                     height: 140,
                                     child: Center(
                                       child: StreamBuilder(
-                                        stream: FirebaseFirestore.instance.collection('scans').snapshots(),
+                                        stream: FirebaseFirestore.instance
+                                            .collection('scans')
+                                            .snapshots(),
                                         builder: (context, snapshot) {
-                                          if(snapshot.hasData) {
+                                          if (snapshot.hasData) {
                                             QuerySnapshot snap = snapshot.data;
-                                            List<int> material = [0,0,0,0];
+                                            List<int> material = [0, 0, 0, 0];
                                             print(snap.size);
-                                            for(int i=0;i<snap.size;i++) {
-                                              if(snap.docs[i].get('packaging').toLowerCase()=='plastic') {
+                                            for (int i = 0;
+                                                i < snap.size;
+                                                i++) {
+                                              if (snap.docs[i]
+                                                      .get('packaging')
+                                                      .toLowerCase() ==
+                                                  'plastic') {
                                                 material[0]++;
                                                 print('plastic');
                                               }
-                                              if(snap.docs[i].get('packaging').toLowerCase()=='cardboard') {
+                                              if (snap.docs[i]
+                                                      .get('packaging')
+                                                      .toLowerCase() ==
+                                                  'cardboard') {
                                                 material[1]++;
                                                 print('plastic');
                                               }
-                                              if(snap.docs[i].get('packaging').toLowerCase()=='metal') {
+                                              if (snap.docs[i]
+                                                      .get('packaging')
+                                                      .toLowerCase() ==
+                                                  'metal') {
                                                 material[2]++;
                                                 print('plastic');
-                                              }
-                                              else {
+                                              } else {
                                                 material[3]++;
-                                                print('other: ${snap.docs[i].get('packaging')}');
+                                                print(
+                                                    'other: ${snap.docs[i].get('packaging')}');
                                               }
                                             }
-                                            int total = material[0]+material[1]+material[2]+material[3];
+                                            int total = material[0] +
+                                                material[1] +
+                                                material[2] +
+                                                material[3];
                                             return PieChart(
                                               PieChartData(
-                                                  pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                                                  pieTouchData: PieTouchData(
+                                                      touchCallback:
+                                                          (pieTouchResponse) {
                                                     setState(() {
-                                                      if (pieTouchResponse.touchInput is FlLongPressEnd ||
-                                                          pieTouchResponse.touchInput is FlPanEnd) {
+                                                      if (pieTouchResponse
+                                                                  .touchInput
+                                                              is FlLongPressEnd ||
+                                                          pieTouchResponse
+                                                                  .touchInput
+                                                              is FlPanEnd) {
                                                         touchedIndex = -1;
-                                                      }
-                                                      else {
-                                                        touchedIndex = pieTouchResponse.touchedSectionIndex;
+                                                      } else {
+                                                        touchedIndex =
+                                                            pieTouchResponse
+                                                                .touchedSectionIndex;
                                                       }
                                                     });
                                                   }),
@@ -168,13 +191,24 @@ class _ScanDataPageState extends State<ScanDataPage> {
                                                   ),
                                                   sectionsSpace: 0,
                                                   centerSpaceRadius: 40,
-                                                  sections: showingSections(material[0]*100.0/total,material[1]*100.0/total,material[2]*100.0/total,material[3]*100.0/total)
-                                              ),
+                                                  sections: showingSections(
+                                                      material[0] *
+                                                          100.0 /
+                                                          total,
+                                                      material[1] *
+                                                          100.0 /
+                                                          total,
+                                                      material[2] *
+                                                          100.0 /
+                                                          total,
+                                                      material[3] *
+                                                          100.0 /
+                                                          total)),
                                             );
-                                          }
-                                          else {
+                                          } else {
                                             return Center(
-                                              child: CircularProgressIndicator(),
+                                              child:
+                                                  CircularProgressIndicator(),
                                             );
                                           }
                                         },
@@ -187,63 +221,63 @@ class _ScanDataPageState extends State<ScanDataPage> {
                           ),
                         ),
                       ),
-                    ]
-                ),
+                    ]),
               ),
               onTap: null,
             ),
             _buildTile(
-              Padding
-                (
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column
-                  (
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>
-                    [
+                    children: <Widget>[
                       Center(
                         child: Icon(
                           Icons.camera_alt_outlined,
                           size: 115,
                         ),
                       ),
-                      Text('Scan', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 24.0)),
+                      Text('Scan',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.0)),
                       Text('Barcode ', style: TextStyle(color: Colors.black45)),
-                    ]
-                ),
+                    ]),
               ),
               onTap: () => scanBarcodeNormal(context),
             ),
             _buildTile(
-              Padding
-                (
-                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 24.0, horizontal: 12.0),
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance.collection('scans').snapshots(),
+                  stream: FirebaseFirestore.instance
+                      .collection('scans')
+                      .snapshots(),
                   builder: (context, snapshot) {
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       QuerySnapshot snap = snapshot.data;
-                      return Column
-                        (
+                      return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>
-                        [
-                          Row
-                            (
+                        children: <Widget>[
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>
-                            [
-                              Column
-                                (
+                            children: <Widget>[
+                              Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>
-                                [
-                                  Text('Scans', style: TextStyle(color: Colors.black45)),
-                                  Text(snap.size.toString(), style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 34.0)),
+                                children: <Widget>[
+                                  Text('Scans',
+                                      style: TextStyle(color: Colors.black45)),
+                                  Text(snap.size.toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 34.0)),
                                 ],
                               ),
                             ],
@@ -255,14 +289,22 @@ class _ScanDataPageState extends State<ScanDataPage> {
                             child: ListView.builder(
                               itemCount: snap.size,
                               itemBuilder: (BuildContext context, index) {
-                                return _goalTile(snap.docs[index].get('name'), DateTime.fromMillisecondsSinceEpoch((snap.docs[index].get('time') as Timestamp).millisecondsSinceEpoch), DateTime.fromMillisecondsSinceEpoch((snap.docs[index].get('expiration') as Timestamp).millisecondsSinceEpoch));
+                                return _goalTile(
+                                    snap.docs[index].get('name'),
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        (snap.docs[index].get('time')
+                                                as Timestamp)
+                                            .millisecondsSinceEpoch),
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        (snap.docs[index].get('expiration')
+                                                as Timestamp)
+                                            .millisecondsSinceEpoch));
                               },
                             ),
                           ),
                         ],
                       );
-                    }
-                    else {
+                    } else {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
@@ -277,8 +319,7 @@ class _ScanDataPageState extends State<ScanDataPage> {
             StaggeredTile.extent(1, 180.0),
             StaggeredTile.extent(2, 350.0),
           ],
-        )
-    );
+        ));
   }
 
   Widget _buildTile(Widget child, {Function() onTap}) {
@@ -286,13 +327,14 @@ class _ScanDataPageState extends State<ScanDataPage> {
         elevation: 14.0,
         borderRadius: BorderRadius.circular(12.0),
         shadowColor: Color(0x802196F3),
-        child: InkWell
-          (
-          // Do onTap() if it isn't null, otherwise do print()
-            onTap: onTap != null ? () => onTap() : () { print('Not set yet'); },
-            child: child
-        )
-    );
+        child: InkWell(
+            // Do onTap() if it isn't null, otherwise do print()
+            onTap: onTap != null
+                ? () => onTap()
+                : () {
+                    print('Not set yet');
+                  },
+            child: child));
   }
 
   Widget _goalTile(String desc, DateTime time, DateTime expiration) {
@@ -337,7 +379,8 @@ class _ScanDataPageState extends State<ScanDataPage> {
     );
   }
 
-  List<PieChartSectionData> showingSections(double plastic, double cardboard, double metal, double other) {
+  List<PieChartSectionData> showingSections(
+      double plastic, double cardboard, double metal, double other) {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 20 : 10;
@@ -350,7 +393,9 @@ class _ScanDataPageState extends State<ScanDataPage> {
             title: isTouched ? 'Plastic' : '${plastic.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           );
         case 1:
           return PieChartSectionData(
@@ -359,7 +404,9 @@ class _ScanDataPageState extends State<ScanDataPage> {
             title: isTouched ? 'Cardboard' : '${cardboard.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           );
         case 2:
           return PieChartSectionData(
@@ -368,7 +415,9 @@ class _ScanDataPageState extends State<ScanDataPage> {
             title: isTouched ? 'Metal' : '${metal.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           );
         case 3:
           return PieChartSectionData(
@@ -377,7 +426,9 @@ class _ScanDataPageState extends State<ScanDataPage> {
             title: isTouched ? 'Others' : '${other.toStringAsFixed(2)}%',
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           );
         default:
           return null;

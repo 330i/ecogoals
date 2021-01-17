@@ -76,7 +76,6 @@ class _ScanPageState extends State<ScanPage> {
       context,
       MaterialPageRoute(
           builder: (context) => EntryConfirmationPage(
-                title: "Confirmation",
                 params: data["products"][0],
               )),
     );
