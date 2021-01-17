@@ -84,46 +84,65 @@ class _StatsState extends State<Stats> {
               ),
             ),
             _buildTile(
-              Padding
-                (
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column
-                  (
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>
-                    [
-                      Container(
-                        height: 30,
-                      ),
-                      Text('Total Waste', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 22.0)),
-                      Container(
-                        height: 5,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '10',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 48.0,
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('scans').snapshots(),
+                builder: (context, snapshot) {
+                  if(snapshot.hasData) {
+                    QuerySnapshot snap = snapshot.data;
+                    double total = 0;
+                    for(int i=0;i<snap.size;i++) {
+                      if(snap.docs[i].get('weight')>=100) {
+                        total+=snap.docs[i].get('weight')/200;
+                      }
+                      else {
+                        total+=snap.docs[i].get('weight');
+                      }
+                    }
+                    return Padding (
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column (
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget> [
+                            Container(
+                              height: 30,
+                            ),
+                            Text('Total Waste', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 22.0)),
+                            Container(
+                              height: 5,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: total.toStringAsFixed(2),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 38.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'kg',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            TextSpan(
-                              text: 'kg',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ]
                       ),
-                    ]
-                ),
+                    );
+                  }
+                  else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ),
             _buildTile(
