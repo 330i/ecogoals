@@ -6,9 +6,27 @@ import 'package:flutter/semantics.dart';
 import 'package:validators/sanitizers.dart';
 
 class EntryConfirmationPage extends StatefulWidget {
-  EntryConfirmationPage({Key key, this.title, this.params}) : super(key: key);
+  EntryConfirmationPage(
+      {Key key,
+      this.title,
+      this.params,
+      this.barcode,
+      this.name,
+      this.weight,
+      this.length,
+      this.width,
+      this.height,
+      this.isFood})
+      : super(key: key);
 
   final Map<String, dynamic> params;
+  String barcode;
+  String name;
+  String weight;
+  String length;
+  String width;
+  String height;
+  bool isFood;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
