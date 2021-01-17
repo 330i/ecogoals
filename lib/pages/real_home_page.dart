@@ -119,11 +119,11 @@ class _StatsState extends State<Stats> {
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 38.0,
+                                      fontSize: 36.0,
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'kg',
+                                    text: 'lbs',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
@@ -132,6 +132,29 @@ class _StatsState extends State<Stats> {
                                   ),
                                 ],
                               ),
+                            ),
+                            Container(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.white70),
+                              ),
+                              child: Container(
+                                height: 25,
+                                width: 100,
+                                child: Text(
+                                  'Visualize',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+
+                              },
                             ),
                           ]
                       ),

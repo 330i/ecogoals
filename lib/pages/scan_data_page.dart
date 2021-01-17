@@ -19,7 +19,7 @@ class _ScanDataPageState extends State<ScanDataPage> {
   String _scanBarcode = 'Unknown';
 
   String barcodeBase = "https://api.barcodelookup.com/v2/products?barcode=";
-  String barcodeSearchKey = "kwdpyrwe68p47x8dx81oyht7jzirg0";
+  String barcodeSearchKey = "6uyacpq2o718lih1oc8rl4cgs7644g";
 
   int touchedIndex;
 
