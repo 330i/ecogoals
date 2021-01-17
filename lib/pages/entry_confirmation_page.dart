@@ -4,9 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:validators/sanitizers.dart';
 
 class EntryConfirmationPage extends StatefulWidget {
-  EntryConfirmationPage({Key key, this.title, this.params}) : super(key: key);
+  EntryConfirmationPage({Key key, this.title, this.params, this.barcode, this.name, this.weight, this.length, this.width, this.height, this.isFood}) : super(key: key);
 
   final Map<String, dynamic> params;
+  String barcode;
+  String name;
+  String weight;
+  String length;
+  String width;
+  String height;
+  bool isFood;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -89,6 +96,13 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     setDefaultScanData();
+    controller[0] = TextEditingController(text: widget.name);
+    controller[2] = TextEditingController(text: widget.length);
+    controller[3] = TextEditingController(text: widget.width);
+    controller[4] = TextEditingController(text: widget.height);
+    controller[5] = TextEditingController(text: widget.weight);
+    controller[6] = TextEditingController(text: widget.barcode);
+    isFood = widget.isFood;
     return Scaffold(
       body: Center(
         child: ListView(

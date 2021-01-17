@@ -1,4 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:ecogoals/pages/real_home_page.dart';
+import 'package:ecogoals/pages/scan_data_page.dart';
 import 'package:ecogoals/pages/scan_page.dart';
 
 import 'package:flutter/material.dart';
@@ -12,8 +14,8 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
   var _pageOptions = [
-    ScanPage(),
-    ScanPage(),
+    Stats(),
+    ScanDataPage(),
     ScanPage(),
   ];
 
