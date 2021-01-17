@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   var _pageOptions = [
     Stats(),
     ScanDataPage(),
-    ScanPage(),
   ];
 
   @override
@@ -64,11 +63,6 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.sort),
               title: Text('Scan'),
               activeColor: Colors.orange,
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.thumb_up_alt),
-                title: Text('Goals'),
-                activeColor: Colors.green,
             )],
         ));
   }
