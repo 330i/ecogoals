@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecogoals/models/product.dart';
+import 'package:ecogoals/pages/info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:validators/sanitizers.dart';
@@ -124,7 +125,12 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
       );
       doc.set(product.toJson());
     });
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              InfoPage(params: widget.params, name: controller[0].text)),
+    );
   }
 
   @override
