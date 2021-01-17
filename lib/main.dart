@@ -1,4 +1,3 @@
-
 import 'package:ecogoals/ar.dart';
 import 'package:ecogoals/pages/entry_confirmation_page.dart';
 import 'package:ecogoals/pages/home_page.dart';
@@ -7,7 +6,6 @@ import 'package:ecogoals/pages/scan_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -36,9 +34,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: EntryConfirmationPage(),
-            ),
+            home: HomePage(),
           );
         }
 
