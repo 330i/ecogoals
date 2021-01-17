@@ -29,7 +29,7 @@ class _ScanPageState extends State<ScanPage> {
   String _scanBarcode = 'Unknown';
 
   String barcodeBase = "https://api.barcodelookup.com/v2/products?barcode=";
-  String barcodeSearchKey = "kwdpyrwe68p47x8dx81oyht7jzirg0";
+  String barcodeSearchKey = "6uyacpq2o718lih1oc8rl4cgs7644g";
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _ScanPageState extends State<ScanPage> {
       MaterialPageRoute(
           builder: (context) => EntryConfirmationPage(
                 title: "Confirmation",
-                params: data,
+                params: data["products"][0],
               )),
     );
   }
