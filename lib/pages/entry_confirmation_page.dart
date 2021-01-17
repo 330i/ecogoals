@@ -7,11 +7,26 @@ import 'package:flutter/semantics.dart';
 import 'package:validators/sanitizers.dart';
 
 class EntryConfirmationPage extends StatefulWidget {
+<<<<<<< HEAD
   EntryConfirmationPage({
     Key key,
     this.params,
     this.name,
   }) : super(key: key);
+=======
+  EntryConfirmationPage(
+      {Key key,
+        this.title,
+        this.params,
+        this.barcode,
+        this.name,
+        this.weight,
+        this.length,
+        this.width,
+        this.height,
+        this.isFood})
+      : super(key: key);
+>>>>>>> origin/ian
 
   final Map<String, dynamic> params;
   final String name;
@@ -61,7 +76,7 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
     print("PARAMSSSSSS!");
     print(widget.params.toString());
     setState(
-      () {
+          () {
         try {
           controller[5].text = widget.params['weight'].toString();
 
@@ -107,7 +122,7 @@ class _EntryConfirmationPageState extends State<EntryConfirmationPage> {
 
   void _confirmScan() async {
     DocumentReference doc =
-        FirebaseFirestore.instance.collection('scans').doc();
+    FirebaseFirestore.instance.collection('scans').doc();
     setState(() {
       Product product = Product(
         name: controller[0].text,

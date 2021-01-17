@@ -1,5 +1,6 @@
 import 'package:ecogoals/ar.dart';
 import 'package:ecogoals/pages/entry_confirmation_page.dart';
+import 'package:ecogoals/pages/goal_creation_page.dart';
 import 'package:ecogoals/pages/home_page.dart';
 
 import 'package:ecogoals/pages/scan_page.dart';
@@ -39,8 +40,11 @@ class MyApp extends StatelessWidget {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Center(
-          child: CircularProgressIndicator(),
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       },
     );

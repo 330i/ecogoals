@@ -338,6 +338,13 @@ class _ScanDataPageState extends State<ScanDataPage> {
   }
 
   Widget _goalTile(String desc, DateTime time, DateTime expiration) {
+    Color alertColor = Colors.white;
+    if(expiration.subtract(Duration(days: 7)).isBefore(DateTime.now())) {
+      alertColor = Colors.orangeAccent;
+    }
+    if(expiration.isBefore(DateTime.now())) {
+      alertColor = Colors.redAccent;
+    }
     return Padding(
       padding: EdgeInsets.all(10),
       child: Container(
@@ -347,7 +354,7 @@ class _ScanDataPageState extends State<ScanDataPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                desc,
+                '$desc ${alertColor==Colors.orangeAccent ? '(expires soon)' : ''}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -364,7 +371,7 @@ class _ScanDataPageState extends State<ScanDataPage> {
         width: 300,
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: alertColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
