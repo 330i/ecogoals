@@ -17,36 +17,41 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error.toString());
-          return Center(
-            child: Container(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.red,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: FutureBuilder(
+          future: Firebase.initializeApp(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot.error.toString());
+              return Center(
+                child: Container(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              );
+            }
+
+            // Once complete, show your application
+            if (snapshot.connectionState == ConnectionState.done) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                home: HomePage(),
+              );
+            }
+
+            // Otherwise, show something whilst waiting for initialization to complete
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-          );
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: HomePage(),
-          );
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }
